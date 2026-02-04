@@ -24,22 +24,30 @@
 
 <div id="admin-modal" class="hidden fixed inset-0 z-50 items-center justify-center glass-modal bg-opacity-90">
     <div class="glass p-8 rounded-xl w-full max-w-sm relative">
-        <button onclick="toggleAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">&times;</button>
+        <button onclick="toggleAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
         
         <h2 class="text-xl font-bold mb-4">Admin Verification</h2>
-        <p class="text-gray-400 text-sm mb-6">Enter your 6-digit passkey to access the dashboard.</p>
+        <p class="text-gray-400 text-sm mb-6">Enter your email and passkey to access the dashboard.</p>
         
         <form action="{{ url_for('admin_dashboard') }}" method="POST" class="space-y-4">
             <div>
-                <input type="email" name="email" placeholder="Enter Admin Email" required
-                       class="w-full text-center bg-dark-400 border border-dark-500 rounded-lg p-3 focus:border-brand focus:outline-none transition">
+                <label class="block text-gray-400 text-sm mb-2">Email Address</label>
+                <input type="email" name="email" placeholder="admin@curepulse.com" required
+                       class="w-full bg-dark-400 border border-dark-500 rounded-lg p-3 focus:border-brand focus:outline-none transition text-white">
             </div>
             <div>
-                <input type="password" name="passkey" placeholder="Enter Passkey" maxlength="6"
-                       class="w-full text-center text-2xl tracking-widest bg-dark-400 border border-dark-500 rounded-lg p-3 focus:border-brand focus:outline-none transition">
+                <label class="block text-gray-400 text-sm mb-2">Passkey</label>
+                <input type="password" name="passkey" placeholder="Enter Passkey" maxlength="20" required
+                       class="w-full bg-dark-400 border border-dark-500 rounded-lg p-3 focus:border-brand focus:outline-none transition text-white">
             </div>
-            <button type="submit" class="w-full bg-brand py-3 rounded-lg font-bold">Verify</button>
+            <button type="submit" class="w-full bg-brand hover:bg-green-600 py-3 rounded-lg font-bold transition">Verify & Login</button>
         </form>
+        
+        <div class="mt-4 p-3 bg-dark-400 rounded-lg border border-dark-500">
+            <p class="text-xs text-gray-400">Default Credentials:</p>
+            <p class="text-xs text-gray-300">Email: <span class="text-brand">admin@curepulse.com</span></p>
+            <p class="text-xs text-gray-300">Passkey: <span class="text-brand">123456</span></p>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -110,18 +110,22 @@ def book_appointment():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_dashboard():
-    # Email and Passkey Verification
+    # Passkey Verification
     if request.method == 'POST':
         email = request.form.get('email')
         passkey = request.form.get('passkey')
+        
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM users WHERE email=%s AND passkey=%s AND role='admin'", (email, passkey))
-        user = cursor.fetchone()
+        admin = cursor.fetchone()
         cursor.close()
-        if user:
+        
+        if admin:
             session['admin_logged_in'] = True
+            session['admin_name'] = admin['name']
+            session['admin_email'] = admin['email']
         else:
-            flash('Invalid Admin Email or Passkey', 'error')
+            flash('Invalid Email or Passkey', 'error')
             return redirect(url_for('index'))
 
     if not session.get('admin_logged_in'):
@@ -170,6 +174,13 @@ def admin_action():
     cursor.close()
     
     return jsonify({'success': True})
+
+@app.route('/logout')
+def logout():
+    """Logout route for admin"""
+    session.clear()
+    flash('Logged out successfully', 'success')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     # Ensure upload folder exists

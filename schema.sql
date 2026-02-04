@@ -5,10 +5,14 @@ USE cure_pulse_db;
 CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
     role ENUM('admin', 'doctor') DEFAULT 'admin',
     passkey VARCHAR(255) NOT NULL -- Admin Passkey (e.g., 123456)
 );
+
+-- Insert default admin account
+INSERT INTO users (name, email, role, passkey) VALUES 
+('Admin', 'admin@curepulse.com', 'admin', '123456');
 
 -- 2. Doctors Table
 CREATE TABLE IF NOT EXISTS doctors (
@@ -53,12 +57,7 @@ CREATE TABLE IF NOT EXISTS appointments (
 );
 
 -- Seed Data (Initial Data)
-INSERT INTO doctors (name, specialization) VALUES
+INSERT INTO doctors (name, specialization) VALUES 
 ('Dr. Adam Smith', 'Cardiologist'),
 ('Dr. Sarah Jones', 'Dermatologist'),
 ('Dr. Emily Clark', 'Neurologist');
-
--- Seed Admin Users (Limited Access)
-INSERT INTO users (name, email, role, passkey) VALUES
-('Admin User 1', 'admin1@curepulse.com', 'admin', '123456'),
-('Admin User 2', 'admin2@curepulse.com', 'admin', '654321');

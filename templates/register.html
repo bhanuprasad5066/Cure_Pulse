@@ -42,13 +42,52 @@
             <input type="text" name="identification_number" placeholder="ID Number" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
         </div>
         
-        <div class="border-2 border-dashed border-dark-500 rounded-lg p-6 text-center cursor-pointer hover:border-brand transition">
-            <label class="cursor-pointer block">
-                <span class="text-brand">Click to upload document</span>
-                <input type="file" name="document" class="hidden">
+        <div id="file-upload-area" class="border-2 border-dashed border-dark-500 rounded-lg p-6 text-center cursor-pointer hover:border-brand transition">
+            <label for="document-input" class="cursor-pointer block">
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span id="upload-text" class="text-brand block mt-2">Click to upload document</span>
+                <span id="file-name" class="text-white text-sm mt-2 hidden"></span>
+                <input type="file" name="document" id="document-input" class="hidden" accept="image/*,.pdf">
             </label>
-            <p class="text-xs text-gray-500 mt-2">SVG, PNG, JPG or GIF (max. 16MB)</p>
+            <p class="text-xs text-gray-500 mt-2">SVG, PNG, JPG, PDF or GIF (max. 16MB)</p>
+            <div id="file-preview" class="mt-4 hidden">
+                <img id="preview-image" class="mx-auto max-h-32 rounded border border-dark-500" alt="Preview">
+            </div>
         </div>
+
+        <script>
+            // File upload preview and name display
+            document.getElementById('document-input').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                const uploadText = document.getElementById('upload-text');
+                const fileName = document.getElementById('file-name');
+                const filePreview = document.getElementById('file-preview');
+                const previewImage = document.getElementById('preview-image');
+                const uploadArea = document.getElementById('file-upload-area');
+                
+                if (file) {
+                    // Show file name
+                    uploadText.textContent = '✓ File Selected';
+                    fileName.textContent = file.name + ' (' + (file.size / 1024).toFixed(2) + ' KB)';
+                    fileName.classList.remove('hidden');
+                    uploadArea.classList.add('border-brand', 'bg-dark-400');
+                    
+                    // Show preview for images
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewImage.src = e.target.result;
+                            filePreview.classList.remove('hidden');
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        filePreview.classList.add('hidden');
+                    }
+                }
+            });
+        </script>
 
         <div class="flex items-center gap-2">
             <input type="checkbox" name="privacy_consent" id="privacy" required class="accent-brand w-4 h-4">
