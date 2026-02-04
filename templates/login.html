@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex h-[80vh] items-center justify-center">
+    <div class="w-full max-w-md space-y-8">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold tracking-tight text-white">
+                Cure_<span class="text-brand">Pulse</span>
+            </h1>
+            <p class="mt-2 text-gray-400">Your Health, Our Priority.</p>
+        </div>
+
+        <div class="mt-8 space-y-4">
+            <a href="{{ url_for('register') }}" class="block w-full py-4 text-center bg-brand hover:bg-green-600 rounded-lg font-bold transition">
+                Get Started (Patient)
+            </a>
+            
+            <button onclick="toggleAdminModal()" class="block w-full py-4 text-center bg-dark-400 hover:bg-dark-500 rounded-lg text-gray-300 font-medium transition">
+                Admin Access
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="admin-modal" class="hidden fixed inset-0 z-50 items-center justify-center glass-modal bg-opacity-90">
+    <div class="glass p-8 rounded-xl w-full max-w-sm relative">
+        <button onclick="toggleAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">&times;</button>
+        
+        <h2 class="text-xl font-bold mb-4">Admin Verification</h2>
+        <p class="text-gray-400 text-sm mb-6">Enter your 6-digit passkey to access the dashboard.</p>
+        
+        <form action="{{ url_for('admin_dashboard') }}" method="POST" class="space-y-4">
+            <div>
+                <input type="email" name="email" placeholder="Enter Admin Email" required
+                       class="w-full text-center bg-dark-400 border border-dark-500 rounded-lg p-3 focus:border-brand focus:outline-none transition">
+            </div>
+            <div>
+                <input type="password" name="passkey" placeholder="Enter Passkey" maxlength="6"
+                       class="w-full text-center text-2xl tracking-widest bg-dark-400 border border-dark-500 rounded-lg p-3 focus:border-brand focus:outline-none transition">
+            </div>
+            <button type="submit" class="w-full bg-brand py-3 rounded-lg font-bold">Verify</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

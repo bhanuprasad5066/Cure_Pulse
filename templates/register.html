@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold">Patient Registration</h1>
+        <p class="text-gray-400">Please fill in your details accurately.</p>
+    </div>
+
+    <form action="/register" method="POST" enctype="multipart/form-data" class="glass p-8 rounded-xl space-y-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" name="full_name" placeholder="Full Name" required class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+            <input type="email" name="email" placeholder="Email Address" required class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+            <input type="tel" name="phone" placeholder="Phone Number" required class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+            <input type="date" name="dob" required class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none text-gray-400">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" name="gender" placeholder="Gender" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+            <input type="text" name="address" placeholder="Address" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+        </div>
+
+        <h2 class="text-xl font-semibold text-brand mt-4">Medical Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" name="primary_physician" placeholder="Primary Physician" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+            <input type="text" name="insurance_provider" placeholder="Insurance Provider" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+            <input type="text" name="insurance_policy_number" placeholder="Policy Number" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+            <textarea name="allergies" placeholder="Allergies (if any)" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none"></textarea>
+        </div>
+        
+        <textarea name="current_medications" placeholder="Current Medications" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none"></textarea>
+        <textarea name="family_medical_history" placeholder="Family Medical History" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none"></textarea>
+
+        <h2 class="text-xl font-semibold text-brand mt-4">Identification</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <select name="identification_type" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none text-gray-400">
+                <option>Birth Certificate</option>
+                <option>Driver's License</option>
+                <option>Passport</option>
+            </select>
+            <input type="text" name="identification_number" placeholder="ID Number" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none">
+        </div>
+        
+        <div class="border-2 border-dashed border-dark-500 rounded-lg p-6 text-center cursor-pointer hover:border-brand transition">
+            <label class="cursor-pointer block">
+                <span class="text-brand">Click to upload document</span>
+                <input type="file" name="document" class="hidden">
+            </label>
+            <p class="text-xs text-gray-500 mt-2">SVG, PNG, JPG or GIF (max. 16MB)</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <input type="checkbox" name="privacy_consent" id="privacy" required class="accent-brand w-4 h-4">
+            <label for="privacy" class="text-sm text-gray-400">I consent to the processing of my medical data.</label>
+        </div>
+
+        <button type="submit" class="w-full bg-brand hover:bg-green-600 text-white font-bold py-4 rounded-lg transition">Submit & Continue</button>
+    </form>
+</div>
+{% endblock %}

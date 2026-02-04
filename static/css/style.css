@@ -1,0 +1,18 @@
+/* Glassmorphism Utilities */
+.glass {
+    background: rgba(26, 29, 33, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-modal {
+    background: rgba(13, 15, 16, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1A1D21; }
+::-webkit-scrollbar-thumb { background: #363A3D; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #24AE7C; }

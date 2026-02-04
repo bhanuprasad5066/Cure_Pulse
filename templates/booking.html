@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-10">
+    <h1 class="text-3xl font-bold mb-6">Book Appointment</h1>
+    
+    <form action="/book" method="POST" class="glass p-8 rounded-xl space-y-6">
+        <div>
+            <label class="block text-gray-400 mb-2">Select Doctor</label>
+            <select name="doctor" class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none text-white">
+                {% for doc in doctors %}
+                <option value="{{ doc.doctor_id }}">{{ doc.name }} - {{ doc.specialization }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-gray-400 mb-2">Preferred Date</label>
+            <input type="datetime-local" name="date" required class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none text-white">
+        </div>
+
+        <div>
+            <label class="block text-gray-400 mb-2">Reason for Visit</label>
+            <textarea name="reason" rows="3" required class="bg-dark-400 border border-dark-500 rounded-lg p-3 w-full focus:border-brand outline-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-brand hover:bg-green-600 text-white font-bold py-3 rounded-lg transition">Confirm Booking</button>
+    </form>
+</div>
+{% endblock %}

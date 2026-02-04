@@ -1,0 +1,145 @@
+CURE_PULSE PROJECT STRUCTURE
+=============================
+
+Cure_Pulse/
+│
+├── 📄 app.py                      # Main Flask application (Backend)
+├── 📄 config.py                   # Configuration settings
+├── 📄 schema.sql                  # Database setup script
+├── 📄 requirements.txt            # Python dependencies
+├── 📄 README.md                   # Complete documentation
+├── 📄 QUICK_START.md              # Quick setup guide
+│
+├── 📁 static/                     # Static assets
+│   ├── 📁 css/
+│   │   └── style.css              # Glassmorphism styles
+│   ├── 📁 js/
+│   │   └── main.js                # Frontend JavaScript
+│   └── 📁 uploads/                # Patient document storage
+│
+└── 📁 templates/                  # HTML templates
+    ├── base.html                  # Master layout (Tailwind CSS)
+    ├── login.html                 # Landing page with admin modal
+    ├── register.html              # Patient registration form
+    ├── booking.html               # Appointment booking
+    └── admin.html                 # Admin dashboard
+
+
+FILE DESCRIPTIONS
+=================
+
+BACKEND FILES:
+--------------
+app.py              - Main application with routes, database queries, file uploads
+config.py           - Database credentials, upload settings, Twilio config
+schema.sql          - Creates database tables and inserts sample doctors
+
+FRONTEND FILES:
+---------------
+templates/base.html     - Contains Tailwind CSS CDN, flash messages, header/footer
+templates/login.html    - Landing page with "Get Started" and "Admin Access" buttons
+templates/register.html - Multi-section patient registration form
+templates/booking.html  - Doctor selection and appointment scheduling
+templates/admin.html    - Dashboard with stats and appointment management table
+
+STATIC FILES:
+-------------
+static/css/style.css - Glassmorphism effects and custom scrollbar styling
+static/js/main.js    - Modal toggle, admin actions (approve/cancel appointments)
+static/uploads/      - Storage for patient ID documents (created automatically)
+
+DOCUMENTATION:
+--------------
+README.md       - Complete documentation with features, setup, troubleshooting
+QUICK_START.md  - Step-by-step setup guide for quick deployment
+requirements.txt - Flask, flask-mysqldb, twilio, werkzeug
+
+
+KEY FEATURES BY FILE
+====================
+
+app.py:
+- Route: / → Landing page
+- Route: /register → Patient registration (handles file upload)
+- Route: /book → Appointment booking
+- Route: /admin → Admin dashboard with passkey verification
+- Route: /admin/action → API endpoint for appointment status updates
+- Helper: send_sms() → Twilio SMS notifications
+
+templates/login.html:
+- Cure_Pulse branding
+- Patient registration button
+- Admin access modal with passkey input
+
+templates/register.html:
+- Personal information section
+- Medical details section
+- Insurance information
+- Identification upload
+- Privacy consent checkbox
+
+templates/admin.html:
+- Real-time statistics (scheduled, pending, cancelled)
+- Appointments table with patient, doctor, date, status
+- Approve/Cancel action buttons
+- Auto-refresh on action
+
+
+DATABASE SCHEMA
+===============
+
+Tables:
+1. users           - Admin/doctor accounts
+2. doctors         - Doctor profiles (pre-seeded with 3 doctors)
+3. patients        - Patient registration data
+4. appointments    - Appointment bookings with status tracking
+
+
+WORKFLOW
+========
+
+PATIENT JOURNEY:
+1. Landing page → Click "Get Started"
+2. Fill registration form → Upload ID
+3. System creates patient record → Auto-login
+4. Book appointment → Select doctor, date, reason
+5. Appointment created with "pending" status
+6. Receive SMS notification (if Twilio configured)
+
+ADMIN JOURNEY:
+1. Landing page → Click "Admin Access"
+2. Enter passkey (123456)
+3. View dashboard statistics
+4. Review pending appointments
+5. Approve → Status changes to "scheduled"
+6. Cancel → Status changes to "cancelled"
+
+
+CUSTOMIZATION GUIDE
+===================
+
+Change Admin Passkey:
+- Edit app.py line 106: if passkey == '123456'
+
+Add More Doctors:
+- Edit schema.sql, add INSERT statement
+- Or add via phpMyAdmin
+
+Change Brand Color:
+- Edit templates/base.html → tailwind.config → colors.brand
+
+Disable SMS:
+- SMS only sends if Twilio credentials are configured
+- Leave default config.py values to disable
+
+
+DEPLOYMENT CHECKLIST
+====================
+
+✓ XAMPP running (Apache + MySQL)
+✓ Database created: cure_pulse_db
+✓ schema.sql executed
+✓ Python packages installed
+✓ config.py updated (if needed)
+✓ Run: python app.py
+✓ Access: http://127.0.0.1:5000
