@@ -52,8 +52,17 @@
                     </td>
                     <td class="p-4 text-right space-x-2">
                         {% if appt.status == 'pending' %}
-                        <button onclick="updateStatus({{ appt.appointment_id }}, 'schedule')" class="text-brand hover:underline">Approve</button>
-                        <button onclick="updateStatus({{ appt.appointment_id }}, 'cancel')" class="text-red-500 hover:underline">Cancel</button>
+                        <button onclick="updateStatus('{{ app.appointment_id }}', 'schedule')" 
+        class="text-brand hover:underline">
+Approve
+</button>
+
+<button onclick="updateStatus('{{ app.appointment_id }}', 'cancel')" 
+        class="text-red-500 hover:underline">
+Cancel
+</button>
+
+                        
                         {% else %}
                         <span class="text-gray-600">-</span>
                         {% endif %}
